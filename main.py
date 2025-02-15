@@ -710,18 +710,17 @@ class Main:
         self.stage.update()
         if self.mode == 'batankyu':
             self.stage.batankyu(self.frame)
-        pyxel.rect(self.x +  STAGE_WIDTH, self.y, PUYO_IMG_WIDTH,  PUYO_IMG_HEIGHT*2, 0)
+            
         pyxel.blt(self.x + STAGE_WIDTH, self.y + PUYO_IMG_HEIGHT, 0, (self.player.first[0] - 1) * PUYO_IMG_WIDTH, 0, PUYO_IMG_WIDTH, PUYO_IMG_HEIGHT, 0)
         pyxel.blt(self.x + STAGE_WIDTH, self.y, 0, (self.player.first[1]-1) * PUYO_IMG_WIDTH, 0, PUYO_IMG_WIDTH, PUYO_IMG_HEIGHT, 0)
         
-        pyxel.rect(self.x +  STAGE_WIDTH + PUYO_IMG_WIDTH, self.y + PUYO_IMG_HEIGHT * 2, PUYO_IMG_WIDTH,  PUYO_IMG_HEIGHT*2, 0)   
         pyxel.blt(self.x + STAGE_WIDTH + PUYO_IMG_WIDTH, self.y + PUYO_IMG_HEIGHT*3, 0, (self.player.second[0] - 1) * PUYO_IMG_WIDTH, 0, PUYO_IMG_WIDTH, PUYO_IMG_HEIGHT, 0)
         pyxel.blt(self.x + STAGE_WIDTH + PUYO_IMG_WIDTH, self.y + PUYO_IMG_HEIGHT*2, 0, (self.player.second[1]-1) * PUYO_IMG_WIDTH, 0, PUYO_IMG_WIDTH, PUYO_IMG_HEIGHT, 0)
 
 class App:
     def __init__(self):
         global player1
-        pyxel.init(int(STAGE_WIDTH*1.5), STAGE_HEIGHT + FONT_HEIGHT, fps = 30)
+        pyxel.init(STAGE_WIDTH + PUYO_IMG_WIDTH*2, STAGE_HEIGHT + FONT_HEIGHT, fps = 30)
         player1 = Main(0, 0)
         pyxel.load('puyo.pyxres')
         pyxel.run(self.update, self.draw)
@@ -733,13 +732,13 @@ class App:
             player1.player.left = True
         elif pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_RIGHT):
             player1.player.right = True
-        elif pyxel.btn(pyxel.KEY_UP) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_B):
+        elif pyxel.btn(pyxel.KEY_UP) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_B) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_A) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_X) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_Y):
             player1.player.up = True
         elif pyxel.btn(pyxel.KEY_DOWN) or pyxel.btn(pyxel.GAMEPAD1_BUTTON_DPAD_DOWN):
             player1.player.down = True
         
     def draw(self):
-        pyxel.cls(12)
+        pyxel.cls(0)
         player1.blit()
         
 if __name__ == '__main__':
